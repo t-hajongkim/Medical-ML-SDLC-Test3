@@ -1,0 +1,141 @@
+{
+  "schema_version": 1,
+  "stage": "evaluation",
+  "selected_ids": [
+    "roc_auc",
+    "average_precision",
+    "brier_score",
+    "calibration_curve"
+  ],
+  "items": [
+    {
+      "id": "roc_auc",
+      "sources": [
+        "default",
+        "ai"
+      ],
+      "state": "eligible_planned_inputs",
+      "reason": "설정된 기본 정책에 포함된 블록입니다. 추가 매개변수 없이 계산 가능한 판별력 지표 제안입니다. 양성률 약 11%의 불균형에서도 순위 성능을 요약하지만, 환자 중복(train-validation 5,055명, train-test 5,086명, validation-test 1,760명)과 비독립 validation 때문에 낙관적일 수 있습니다. 주지표 확정은 사람이 결정합니다. 입력은 이후 생성할 계획이며 아직 계산하지 않았습니다. 실제 지표 실행 시 행 정합과 수학적 요건을 다시 검증합니다.",
+      "blocked_reasons": [],
+      "requires": [
+        "y_true",
+        "y_probability"
+      ],
+      "requires_parameters": [],
+      "requires_context": [],
+      "required": false,
+      "evidence": [
+        "required.patient_overlap.status",
+        "required.patient_overlap.overlaps",
+        "split_counts",
+        "objectives.evaluation",
+        "probability_output_planned"
+      ]
+    },
+    {
+      "id": "average_precision",
+      "sources": [
+        "default",
+        "ai"
+      ],
+      "state": "eligible_planned_inputs",
+      "reason": "설정된 기본 정책에 포함된 블록입니다. 양성 약 11%의 불균형에서 양성 예측 정밀도-재현율 균형을 보완하는 지표입니다. 임계값이 필요 없으나 환자 중복·정답 관측 한계로 해석에 주의하며 임상 사용 승인을 뜻하지 않습니다. 입력은 이후 생성할 계획이며 아직 계산하지 않았습니다. 실제 지표 실행 시 행 정합과 수학적 요건을 다시 검증합니다.",
+      "blocked_reasons": [],
+      "requires": [
+        "y_true",
+        "y_probability"
+      ],
+      "requires_parameters": [],
+      "requires_context": [],
+      "required": false,
+      "evidence": [
+        "coordinated.cohort",
+        "coordinated.label_observability",
+        "labels_planned",
+        "probability_output_planned"
+      ]
+    },
+    {
+      "id": "brier_score",
+      "sources": [
+        "default",
+        "ai"
+      ],
+      "state": "eligible_planned_inputs",
+      "reason": "설정된 기본 정책에 포함된 블록입니다. 확률 품질 목적에 맞는 매개변수 불필요 지표입니다. 확률 출력은 향후 계획 입력이며 현재 계산 결과가 아니고, 타깃 인코딩 이력 불명확으로 보정 해석에 한계가 있습니다. 입력은 이후 생성할 계획이며 아직 계산하지 않았습니다. 실제 지표 실행 시 행 정합과 수학적 요건을 다시 검증합니다.",
+      "blocked_reasons": [],
+      "requires": [
+        "y_true",
+        "y_probability"
+      ],
+      "requires_parameters": [],
+      "requires_context": [],
+      "required": false,
+      "evidence": [
+        "objectives.evaluation",
+        "probability_output_planned",
+        "coordinated.preprocessing_lineage"
+      ]
+    },
+    {
+      "id": "calibration_curve",
+      "sources": [
+        "default",
+        "ai"
+      ],
+      "state": "eligible_planned_inputs",
+      "reason": "설정된 기본 정책에 포함된 블록입니다. 예측 확률과 관측 재입원율의 일치를 구간별로 보는 확률 품질 점검입니다. n_bins는 기본값 10을 쓰며 미정이므로 사람이 조정할 수 있고, 소규모 구간은 불안정할 수 있습니다. 입력은 이후 생성할 계획이며 아직 계산하지 않았습니다. 실제 지표 실행 시 행 정합과 수학적 요건을 다시 검증합니다.",
+      "blocked_reasons": [],
+      "requires": [
+        "y_true",
+        "y_probability"
+      ],
+      "requires_parameters": [],
+      "requires_context": [],
+      "required": false,
+      "evidence": [
+        "objectives.evaluation",
+        "parameters.n_bins_defined",
+        "split_counts",
+        "probability_output_planned"
+      ]
+    }
+  ],
+  "defaults": [
+    "roc_auc",
+    "average_precision",
+    "brier_score",
+    "calibration_curve"
+  ],
+  "required_ids": [],
+  "ai_recommended_ids": [
+    "roc_auc",
+    "average_precision",
+    "brier_score",
+    "calibration_curve"
+  ],
+  "user_added_ids": [],
+  "user_excluded_ids": [],
+  "objectives": [
+    "discrimination",
+    "probability_quality"
+  ],
+  "ai_status": "provided",
+  "approval_required": true,
+  "planning_complete": true,
+  "draft": false,
+  "clinical_use_approved": false,
+  "primary_metric": null,
+  "threshold": null,
+  "parameters": {},
+  "clinical_action": null,
+  "comparison_model": null,
+  "planned_inputs": {
+    "y_true": true,
+    "y_probability": true,
+    "sample_ids": true,
+    "reference_sample_ids": false,
+    "reference_probabilities": false
+  },
+  "interpretation": "계산 계획은 임상 사용 승인이나 독립 성능 검증이 아닙니다. 환자 중복과 validation 재사용의 설계 한계를 별도로 유지합니다."
+}
