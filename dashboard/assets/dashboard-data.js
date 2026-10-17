@@ -1,15 +1,26 @@
-// Empty initial shell. The publisher replaces this with actual aggregate outputs.
 window.DASHBOARD_DATA = {
-  schema: 1,
-  purpose: "Progressive read-only dashboard; awaiting actual pipeline outputs.",
-  generated_at: null,
-  remote_pr1: null,
-  target: null,
-  dataset: {},
-  eda: { results: [], assessment_status: "pending", executed_ids: [], reused_ids: [] },
-  evaluation_plan: {},
-  local_smoke: null,
-  remote_model_evaluation: null,
-  remote_pr2: null,
-  pipeline: { repository: null, issue_number: null, stage: "idle", source_run: null, status: "pending" }
-};
+  "dataset": {},
+  "eda": {
+    "assessment_status": "pending",
+    "executed_ids": [],
+    "results": [],
+    "reused_ids": []
+  },
+  "evaluation_plan": {},
+  "generated_at": "2026-10-17T08:38:10.210896+00:00",
+  "local_smoke": null,
+  "pipeline": {
+    "issue_number": null,
+    "repository": "t-hajongkim/Medical-ML-SDLC-Test3",
+    "source_run": null,
+    "stage": "idle",
+    "status": "pending"
+  },
+  "purpose": "GitHub Actions aggregate stage snapshot",
+  "remote_model_evaluation": null,
+  "remote_pr1": null,
+  "remote_pr2": null,
+  "schema": 1,
+  "target": null
+}
+;
