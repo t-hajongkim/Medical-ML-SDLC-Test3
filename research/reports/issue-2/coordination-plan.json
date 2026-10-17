@@ -2,14 +2,14 @@
   "record": {
     "schema_version": 1,
     "provider": "github-copilot-cloud-agent",
-    "context_hash": "a257141bca354a737820fcab4c8c1c58307f818affa45efc873aba8d4a7f9752",
+    "context_hash": "2528b386c73ff540823ac77e02c7c789e49dc5392da2d0ec0a5d71b73f2bc3a2",
     "request_hash": "4292a6b73b57910985056da7097707ca700ca2608182a18a66541ff08a5cebfa",
-    "base_selection_hash": "c71488a9c9d9d9ce07807673efffec3f1fe62e0e2ba01b60a0131e7a72e14459",
+    "base_selection_hash": "3308b4b75b085968d0fa40283080e81b6c4ce5513974371096e77bd37335218b",
     "selection_hash": "3308b4b75b085968d0fa40283080e81b6c4ce5513974371096e77bd37335218b",
     "schema_hash": "ee54ec643d55a5f5e8e8d8456f5252426855abd1580c6f0904dfda883c9abb9f",
-    "feedback_hash": "3a311b70eda9153d56d4f412e099383a1d63c083da26b372089c603c33b9ada3",
+    "feedback_hash": "2988a2cbb0d17a06ed17c04f0d07541925583b09bde867b616c6594d1a6a74cc",
     "feedback_ids": [
-      6228992484
+      6229055192
     ],
     "eda_add": [],
     "objectives": {
@@ -26,8 +26,8 @@
         "threshold_performance"
       ]
     },
-    "reason": "사용 가능한 추가 EDA가 없고 기본 점검 7종이 모두 실행되어 eda_add는 비워 둡니다. 피드백에 따라 F1·재현율을 추가하고 주지표를 Average Precision으로 지정합니다. 추가 한 가지로는 F1·재현율과 같은 임계값에서 해석되는 정밀도를 제안합니다. 임계값은 사람이 정해야 하므로 확정하지 않았습니다.",
-    "coordination_hash": "12f5751dcfe13ee7f35c02c49d940c199218a4b2e77ef11e9840603f22aeee9a"
+    "reason": "기본 EDA 7개가 이미 실행되어 추가할 점검이 없습니다. 임계값 피드백은 재입원 위험에 보편적으로 합의된 임상 임계값이 없고 양성률이 약 11%라 임의 값이 지표를 왜곡할 수 있으므로 AI가 확정하지 않고 사람이 임상 행동과 함께 정하도록 남깁니다.",
+    "coordination_hash": "cbbd8099558bf68a5b16af6760762bf5149e8167a3bd140614341f5d66e2f315"
   },
   "code_commit": "79b176eccc64b0f552be55a83249b1095d43f942",
   "schema": {
@@ -3229,5 +3229,5 @@
       }
     }
   },
-  "coordination_hash": "c4f2d83645535474d30e1a0910d0dd2e769a3e6fdd65c4d34a6a93f9bf2902f8"
+  "coordination_hash": "0f19db948c7611ab958daaa2ed05f70bbc4c9b0ec353e6cd60502160f0d6c8cb"
 }

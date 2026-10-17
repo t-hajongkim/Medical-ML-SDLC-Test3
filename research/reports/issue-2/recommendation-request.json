@@ -1,12 +1,12 @@
 {
   "schema_version": 1,
   "provider": "github-copilot-cloud-agent",
-  "context_hash": "9f1f23bbd17bf996fa6c97a09899b304fca9947d8a88aaacd6bf09e565db6929",
+  "context_hash": "5031fcaa77d36218e06e9ecef40798e79d2c878eb7668973b835e1fbaef2ab3f",
   "context": {
     "facts": {
       "data_id": "c34ec224503e2038c79fd11c47e0f603c7e392ba46f4e8c14e1661bfaf5303fd",
       "input_mapping_hash": "efb2726a5496829ff0cd9425b5741ff12309f4be74444728754ea7371c21837e",
-      "coordination_hash": "c4f2d83645535474d30e1a0910d0dd2e769a3e6fdd65c4d34a6a93f9bf2902f8",
+      "coordination_hash": "0f19db948c7611ab958daaa2ed05f70bbc4c9b0ec353e6cd60502160f0d6c8cb",
       "research_request_hash": "4292a6b73b57910985056da7097707ca700ca2608182a18a66541ff08a5cebfa",
       "initial_execution_plan_hash": "25225c56f304a76612b726a9067781aa9346b0d94097fbb6599b998fd4eab36c",
       "coordinated.demographics": {

@@ -18,7 +18,7 @@
         "ai"
       ],
       "state": "eligible_planned_inputs",
-      "reason": "설정된 기본 정책에 포함된 블록입니다. 임계값 없이 순위 구분력을 볼 수 있는 기본 지표입니다. 환자 중복으로 낙관적일 수 있어 보조 해석으로만 사용합니다. 입력은 이후 생성할 계획이며 아직 계산하지 않았습니다. 실제 지표 실행 시 행 정합과 수학적 요건을 다시 검증합니다.",
+      "reason": "설정된 기본 정책에 포함된 블록입니다. 판별력 목적에 맞고 임계값이 필요 없어 즉시 적용 가능합니다. 다만 환자 중복(분할 간 겹침)과 validation 재사용 때문에 낙관적일 수 있어 독립 임상 검증이 아닙니다. 입력은 이후 생성할 계획이며 아직 계산하지 않았습니다. 실제 지표 실행 시 행 정합과 수학적 요건을 다시 검증합니다.",
       "blocked_reasons": [],
       "requires": [
         "y_true",
@@ -28,6 +28,7 @@
       "requires_context": [],
       "required": false,
       "evidence": [
+        "objectives.evaluation",
         "required.patient_overlap.overlaps",
         "probability_output_planned"
       ]
@@ -40,7 +41,7 @@
         "user"
       ],
       "state": "eligible_planned_inputs",
-      "reason": "설정된 기본 정책에 포함된 블록입니다. 사용자가 주지표로 요청했습니다. 재입원 비율이 약 11%로 불균형이어서 양성 정밀도-재현율 관점에 적합합니다. 환자 중복과 비독립 validation 한계로 성능을 과신할 수 없습니다. 사용자가 추가로 선택한 블록입니다. 입력은 이후 생성할 계획이며 아직 계산하지 않았습니다. 실제 지표 실행 시 행 정합과 수학적 요건을 다시 검증합니다.",
+      "reason": "설정된 기본 정책에 포함된 블록입니다. 양성률이 약 11%로 불균형이어서 정밀도-재현율 관점의 요약이 유용하며 현재 선택된 주지표 후보와도 부합합니다. 주지표 확정은 사람이 합니다. 사용자가 추가로 선택한 블록입니다. 입력은 이후 생성할 계획이며 아직 계산하지 않았습니다. 실제 지표 실행 시 행 정합과 수학적 요건을 다시 검증합니다.",
       "blocked_reasons": [],
       "requires": [
         "y_true",
@@ -51,9 +52,8 @@
       "required": false,
       "evidence": [
         "split_counts",
-        "required.patient_overlap.status",
-        "labels_planned",
-        "probability_output_planned"
+        "coordinated.cohort",
+        "labels_planned"
       ]
     },
     {
@@ -63,7 +63,7 @@
         "ai"
       ],
       "state": "eligible_planned_inputs",
-      "reason": "설정된 기본 정책에 포함된 블록입니다. 확률 출력의 정확도를 평가하는 기본 지표입니다. 클래스 불균형을 고려해 해석하며 임상 사용 승인은 아닙니다. 입력은 이후 생성할 계획이며 아직 계산하지 않았습니다. 실제 지표 실행 시 행 정합과 수학적 요건을 다시 검증합니다.",
+      "reason": "설정된 기본 정책에 포함된 블록입니다. 확률 품질 목적에 맞는 임계값 불필요 지표입니다. 확률 출력은 이후 계획 입력이며 현재 계산 결과가 아닙니다. 입력은 이후 생성할 계획이며 아직 계산하지 않았습니다. 실제 지표 실행 시 행 정합과 수학적 요건을 다시 검증합니다.",
       "blocked_reasons": [],
       "requires": [
         "y_true",
@@ -73,8 +73,8 @@
       "requires_context": [],
       "required": false,
       "evidence": [
-        "probability_output_planned",
-        "split_counts"
+        "objectives.evaluation",
+        "probability_output_planned"
       ]
     },
     {
@@ -84,7 +84,7 @@
         "ai"
       ],
       "state": "eligible_planned_inputs",
-      "reason": "설정된 기본 정책에 포함된 블록입니다. 예측 확률과 관찰 재입원율의 일치를 구간별로 확인합니다. n_bins는 사람이 정하지 않았으므로 기본값 사용 여부를 검토해야 하며 희소 구간은 불안정합니다. 입력은 이후 생성할 계획이며 아직 계산하지 않았습니다. 실제 지표 실행 시 행 정합과 수학적 요건을 다시 검증합니다.",
+      "reason": "설정된 기본 정책에 포함된 블록입니다. 확률 보정을 구간별로 확인하며 n_bins는 기본값 10을 쓸 수 있습니다. 소수 하위집단은 표본이 작아 해석에 주의가 필요합니다. 입력은 이후 생성할 계획이며 아직 계산하지 않았습니다. 실제 지표 실행 시 행 정합과 수학적 요건을 다시 검증합니다.",
       "blocked_reasons": [],
       "requires": [
         "y_true",
@@ -95,17 +95,16 @@
       "required": false,
       "evidence": [
         "parameters.n_bins_defined",
-        "probability_output_planned"
+        "coordinated.demographics"
       ]
     },
     {
       "id": "f1",
       "sources": [
-        "ai",
         "user"
       ],
       "state": "blocked",
-      "reason": "사용자가 추가를 요청했습니다. 명시적 임계값이 필요한데 아직 정해지지 않아 사람의 임계값 확정 전에는 계산할 수 없습니다. 사용자가 추가로 선택한 블록입니다. 확정된 매개변수가 없습니다: threshold.",
+      "reason": "사용자가 추가로 선택한 블록입니다. 확정된 매개변수가 없습니다: threshold.",
       "blocked_reasons": [
         "확정된 매개변수가 없습니다: threshold."
       ],
@@ -118,19 +117,15 @@
       ],
       "requires_context": [],
       "required": false,
-      "evidence": [
-        "parameters.threshold_defined",
-        "labels_planned"
-      ]
+      "evidence": []
     },
     {
       "id": "recall",
       "sources": [
-        "ai",
         "user"
       ],
       "state": "blocked",
-      "reason": "사용자가 추가를 요청했습니다. 놓치는 재입원 양성 비율을 보여 주지만 임계값이 미정이며 임상 조치도 정의되지 않아 보류 조건이 있습니다. 사용자가 추가로 선택한 블록입니다. 확정된 매개변수가 없습니다: threshold.",
+      "reason": "사용자가 추가로 선택한 블록입니다. 확정된 매개변수가 없습니다: threshold.",
       "blocked_reasons": [
         "확정된 매개변수가 없습니다: threshold."
       ],
@@ -143,19 +138,15 @@
       ],
       "requires_context": [],
       "required": false,
-      "evidence": [
-        "parameters.threshold_defined",
-        "clinical_action_defined"
-      ]
+      "evidence": []
     },
     {
       "id": "precision",
       "sources": [
-        "ai",
         "user"
       ],
       "state": "blocked",
-      "reason": "추가 한 가지로 제안합니다. F1·재현율과 같은 임계값에서 경보 중 실제 재입원 비율을 보여 균형 있는 해석을 돕습니다. 임계값은 사람이 확정해야 합니다. 사용자가 추가로 선택한 블록입니다. 확정된 매개변수가 없습니다: threshold.",
+      "reason": "사용자가 추가로 선택한 블록입니다. 확정된 매개변수가 없습니다: threshold.",
       "blocked_reasons": [
         "확정된 매개변수가 없습니다: threshold."
       ],
@@ -168,10 +159,7 @@
       ],
       "requires_context": [],
       "required": false,
-      "evidence": [
-        "parameters.threshold_defined",
-        "labels_planned"
-      ]
+      "evidence": []
     }
   ],
   "defaults": [
@@ -182,13 +170,10 @@
   ],
   "required_ids": [],
   "ai_recommended_ids": [
-    "average_precision",
     "roc_auc",
+    "average_precision",
     "brier_score",
-    "calibration_curve",
-    "f1",
-    "recall",
-    "precision"
+    "calibration_curve"
   ],
   "user_added_ids": [
     "average_precision",
