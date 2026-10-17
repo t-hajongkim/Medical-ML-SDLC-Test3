@@ -18,7 +18,7 @@
 | data_id | `c34ec224503e2038c79fd11c47e0f603c7e392ba46f4e8c14e1661bfaf5303fd` |
 | prepared revision | `4a61a3591f079628c72f5edbc7494ca7dda8741d` |
 | 실행 코드 commit | `79b176eccc64b0f552be55a83249b1095d43f942` |
-| 실행 근거 | https://github.com/t-hajongkim/Medical-ML-SDLC-Test3/actions/runs/38997560363 |
+| 실행 근거 | https://github.com/t-hajongkim/Medical-ML-SDLC-Test3/actions/runs/38998573196 |
 
 입력 경로: 검증된 준비파일 또는 명시된 기존 집계 재사용입니다.
 EDA 실행 방식: `registered_execution_plan`. 선택한 데이터 점검 블록만 실행했습니다.
@@ -215,7 +215,7 @@ EDA 실행 방식: `registered_execution_plan`. 선택한 데이터 점검 블�
 
 ## 평가 계획 추천 초안
 
-사용자 선택 primary_metric: `None`, threshold: `None`. 자동 승인·계산 결과가 아니며 임상 사용은 미승인입니다.
+사용자 선택 primary_metric: `average_precision`, threshold: `None`. 자동 승인·계산 결과가 아니며 임상 사용은 미승인입니다.
 
 ### eda: 기본 정책 + 실제 AI 추천 + 사용자 선택
 AI: `provided`; planning_complete: `True`.
@@ -226,9 +226,9 @@ AI: `provided`; planning_complete: `True`.
 | `patient_overlap` | default | `selected_for_diagnosis` | 설정된 기본 정책에 포함된 블록입니다. 자료나 근거가 부족하면 진단 블록이 확인 불가로 보고합니다. |
 | `demographics` | default | `selected_for_diagnosis` | 설정된 기본 정책에 포함된 블록입니다. 자료나 근거가 부족하면 진단 블록이 확인 불가로 보고합니다. |
 | `cohort` | default | `selected_for_diagnosis` | 설정된 기본 정책에 포함된 블록입니다. 자료나 근거가 부족하면 진단 블록이 확인 불가로 보고합니다. |
-| `label_observability` | ai | `selected_for_diagnosis` | 이미 검증된 추가 EDA 선택입니다. 정답 인코딩(&lt;30→1)은 통과했으나 원본 라벨 정렬, 추적 완결성, 외부 병원 재입원 포착은 확인 불가이므로 target 0이 무사건 추적을 뜻하지 않는다는 해석 한계를 유지합니다. 자료나 근거가 부족하면 진단 블록이 확인 불가로 보고합니다. |
-| `preprocessing_lineage` | ai | `selected_for_diagnosis` | 이미 검증된 추가 EDA 선택입니다. 인종 대치(Caucasian)와 스케일링·타깃 인코딩의 적합 범위가 확인 불가이고 validation이 모델 개발에 쓰였으므로 독립 holdout·누수 없음 주장을 할 수 없습니다. 자료나 근거가 부족하면 진단 블록이 확인 불가로 보고합니다. |
-| `prediction_timing` | ai | `selected_for_diagnosis` | 이미 검증된 추가 EDA 선택입니다. 예측 시점 선언과 특성 가용성 사전이 없어 퇴원·재원 정보 후보(discharge_disposition_id, time_in_hospital 등)의 사용 가능 여부를 확인 불가로 보류합니다. 자료나 근거가 부족하면 진단 블록이 확인 불가로 보고합니다. |
+| `label_observability` | ai | `selected_for_diagnosis` | 이미 검증된 EDA 선택입니다. 정답 인코딩(&lt;30=1)은 통과했지만 원본 라벨 정렬, 추적 완결성, 외부 병원 재입원 포착은 확인 불가이므로 정답 0을 완전한 무사건으로 해석할 수 없습니다. 자료나 근거가 부족하면 진단 블록이 확인 불가로 보고합니다. |
+| `preprocessing_lineage` | ai | `selected_for_diagnosis` | 이미 검증된 EDA 선택입니다. 인종 대치, 스케일링, 타깃 인코딩의 적합 범위가 확인 불가이고 공개 validation이 모델 개발에 쓰였으므로 독립 holdout·누수 없음을 주장할 수 없습니다. 자료나 근거가 부족하면 진단 블록이 확인 불가로 보고합니다. |
+| `prediction_timing` | ai | `selected_for_diagnosis` | 이미 검증된 EDA 선택입니다. 예측 시점과 특성 가용성 근거가 없어 퇴원 정보 등 완료 후 정보 후보를 안전하다고 볼 수 없으며 확인 불가 상태로 유지합니다. 자료나 근거가 부족하면 진단 블록이 확인 불가로 보고합니다. |
 사용자 제외: 없음
 
 ### evaluation: 기본 정책 + 실제 AI 추천 + 사용자 선택
@@ -236,15 +236,18 @@ AI: `provided`; planning_complete: `True`.
 
 | 선택 ID | 출처 | 상태 | 이유 / 차단 근거 |
 |---|---|---|---|
-| `roc_auc` | default, ai | `eligible_planned_inputs` | 설정된 기본 정책에 포함된 블록입니다. 추가 매개변수 없이 계산 가능한 판별력 지표 제안입니다. 양성률 약 11%의 불균형에서도 순위 성능을 요약하지만, 환자 중복(train-validation 5,055명, train-test 5,086명, validation-test 1,760명)과 비독립 validation 때문에 낙관적일 수 있습니다. 주지표 확정은 사람이 결정합니다. 입력은 이후 생성할 계획이며 아직 계산하지 않았습니다. 실제 지표 실행 시 행 정합과 수학적 요건을 다시 검증합니다. |
-| `average_precision` | default, ai | `eligible_planned_inputs` | 설정된 기본 정책에 포함된 블록입니다. 양성 약 11%의 불균형에서 양성 예측 정밀도-재현율 균형을 보완하는 지표입니다. 임계값이 필요 없으나 환자 중복·정답 관측 한계로 해석에 주의하며 임상 사용 승인을 뜻하지 않습니다. 입력은 이후 생성할 계획이며 아직 계산하지 않았습니다. 실제 지표 실행 시 행 정합과 수학적 요건을 다시 검증합니다. |
-| `brier_score` | default, ai | `eligible_planned_inputs` | 설정된 기본 정책에 포함된 블록입니다. 확률 품질 목적에 맞는 매개변수 불필요 지표입니다. 확률 출력은 향후 계획 입력이며 현재 계산 결과가 아니고, 타깃 인코딩 이력 불명확으로 보정 해석에 한계가 있습니다. 입력은 이후 생성할 계획이며 아직 계산하지 않았습니다. 실제 지표 실행 시 행 정합과 수학적 요건을 다시 검증합니다. |
-| `calibration_curve` | default, ai | `eligible_planned_inputs` | 설정된 기본 정책에 포함된 블록입니다. 예측 확률과 관측 재입원율의 일치를 구간별로 보는 확률 품질 점검입니다. n_bins는 기본값 10을 쓰며 미정이므로 사람이 조정할 수 있고, 소규모 구간은 불안정할 수 있습니다. 입력은 이후 생성할 계획이며 아직 계산하지 않았습니다. 실제 지표 실행 시 행 정합과 수학적 요건을 다시 검증합니다. |
+| `roc_auc` | default, ai | `eligible_planned_inputs` | 설정된 기본 정책에 포함된 블록입니다. 임계값 없이 순위 구분력을 볼 수 있는 기본 지표입니다. 환자 중복으로 낙관적일 수 있어 보조 해석으로만 사용합니다. 입력은 이후 생성할 계획이며 아직 계산하지 않았습니다. 실제 지표 실행 시 행 정합과 수학적 요건을 다시 검증합니다. |
+| `average_precision` | default, ai, user | `eligible_planned_inputs` | 설정된 기본 정책에 포함된 블록입니다. 사용자가 주지표로 요청했습니다. 재입원 비율이 약 11%로 불균형이어서 양성 정밀도-재현율 관점에 적합합니다. 환자 중복과 비독립 validation 한계로 성능을 과신할 수 없습니다. 사용자가 추가로 선택한 블록입니다. 입력은 이후 생성할 계획이며 아직 계산하지 않았습니다. 실제 지표 실행 시 행 정합과 수학적 요건을 다시 검증합니다. |
+| `brier_score` | default, ai | `eligible_planned_inputs` | 설정된 기본 정책에 포함된 블록입니다. 확률 출력의 정확도를 평가하는 기본 지표입니다. 클래스 불균형을 고려해 해석하며 임상 사용 승인은 아닙니다. 입력은 이후 생성할 계획이며 아직 계산하지 않았습니다. 실제 지표 실행 시 행 정합과 수학적 요건을 다시 검증합니다. |
+| `calibration_curve` | default, ai | `eligible_planned_inputs` | 설정된 기본 정책에 포함된 블록입니다. 예측 확률과 관찰 재입원율의 일치를 구간별로 확인합니다. n_bins는 사람이 정하지 않았으므로 기본값 사용 여부를 검토해야 하며 희소 구간은 불안정합니다. 입력은 이후 생성할 계획이며 아직 계산하지 않았습니다. 실제 지표 실행 시 행 정합과 수학적 요건을 다시 검증합니다. |
+| `f1` | ai, user | `blocked` | 사용자가 추가를 요청했습니다. 명시적 임계값이 필요한데 아직 정해지지 않아 사람의 임계값 확정 전에는 계산할 수 없습니다. 사용자가 추가로 선택한 블록입니다. 확정된 매개변수가 없습니다: threshold. |
+| `recall` | ai, user | `blocked` | 사용자가 추가를 요청했습니다. 놓치는 재입원 양성 비율을 보여 주지만 임계값이 미정이며 임상 조치도 정의되지 않아 보류 조건이 있습니다. 사용자가 추가로 선택한 블록입니다. 확정된 매개변수가 없습니다: threshold. |
+| `precision` | ai, user | `blocked` | 추가 한 가지로 제안합니다. F1·재현율과 같은 임계값에서 경보 중 실제 재입원 비율을 보여 균형 있는 해석을 돕습니다. 임계값은 사람이 확정해야 합니다. 사용자가 추가로 선택한 블록입니다. 확정된 매개변수가 없습니다: threshold. |
 사용자 제외: 없음
 
 ## 사용자 선택과 승인
 교육용 계획 승인 준비: **미완료**.
-- 선택 목록에 포함된 명시적인 primary_metric이 필요합니다.
+- blocked 평가 항목: f1, recall, precision
 
 PR의 Conversation에 자연어 피드백을 작성할 수 있습니다. 현재 write/maintain/admin 권한이 있는 사람의 요청만 AI 조율과 Python 검증을 거쳐 같은 PR에 반영합니다.
 추가·제외·주지표·임계값과 매개변수 변경을 자유롭게 요청하세요. AI가 요청을 해석하고 Python이 검증합니다.
@@ -279,7 +282,7 @@ DCA는 임상 행동·threshold 범위가 정해지기 전 보류합니다. 비�
 원래 추천·프로필·출처 명세는 `input-mapping.json`에 보존합니다.
 ## AI 연구 조율
 
-기본 EDA에서 환자 중복 실패와 스키마·코호트 미검증이 확인되었고, 연구 질문이 전처리 대치값 해석과 평가 해석 주의사항을 묻습니다. 정답 관측 한계(label_observability), 전처리 출처(preprocessing_lineage), 예측 시점 가용성(prediction_timing)을 추가 점검합니다. 이들은 근거 부족 시 unverifiable로 보고되며 통과 증명이 아닙니다.
+사용 가능한 추가 EDA가 없고 기본 점검 7종이 모두 실행되어 eda_add는 비워 둡니다. 피드백에 따라 F1·재현율을 추가하고 주지표를 Average Precision으로 지정합니다. 추가 한 가지로는 F1·재현율과 같은 임계값에서 해석되는 정밀도를 제안합니다. 임계값은 사람이 정해야 하므로 확정하지 않았습니다.
 
 공개 연구 목적·스키마와 권한 있는 사람의 피드백을 기준으로 구성한 수정안입니다.
 최종 승인은 사람의 Merge이며 모델 실행 승인이 아닙니다.

@@ -84,7 +84,7 @@
         "ai"
       ],
       "state": "selected_for_diagnosis",
-      "reason": "이미 검증된 추가 EDA 선택입니다. 정답 인코딩(<30→1)은 통과했으나 원본 라벨 정렬, 추적 완결성, 외부 병원 재입원 포착은 확인 불가이므로 target 0이 무사건 추적을 뜻하지 않는다는 해석 한계를 유지합니다. 자료나 근거가 부족하면 진단 블록이 확인 불가로 보고합니다.",
+      "reason": "이미 검증된 EDA 선택입니다. 정답 인코딩(<30=1)은 통과했지만 원본 라벨 정렬, 추적 완결성, 외부 병원 재입원 포착은 확인 불가이므로 정답 0을 완전한 무사건으로 해석할 수 없습니다. 자료나 근거가 부족하면 진단 블록이 확인 불가로 보고합니다.",
       "blocked_reasons": [],
       "requires": [
         "metadata",
@@ -104,7 +104,7 @@
         "ai"
       ],
       "state": "selected_for_diagnosis",
-      "reason": "이미 검증된 추가 EDA 선택입니다. 인종 대치(Caucasian)와 스케일링·타깃 인코딩의 적합 범위가 확인 불가이고 validation이 모델 개발에 쓰였으므로 독립 holdout·누수 없음 주장을 할 수 없습니다. 자료나 근거가 부족하면 진단 블록이 확인 불가로 보고합니다.",
+      "reason": "이미 검증된 EDA 선택입니다. 인종 대치, 스케일링, 타깃 인코딩의 적합 범위가 확인 불가이고 공개 validation이 모델 개발에 쓰였으므로 독립 holdout·누수 없음을 주장할 수 없습니다. 자료나 근거가 부족하면 진단 블록이 확인 불가로 보고합니다.",
       "blocked_reasons": [],
       "requires": [
         "data_manifest"
@@ -113,8 +113,7 @@
       "requires_context": [],
       "required": false,
       "evidence": [
-        "coordinated.preprocessing_lineage",
-        "coordinated.demographics"
+        "coordinated.preprocessing_lineage"
       ]
     },
     {
@@ -123,7 +122,7 @@
         "ai"
       ],
       "state": "selected_for_diagnosis",
-      "reason": "이미 검증된 추가 EDA 선택입니다. 예측 시점 선언과 특성 가용성 사전이 없어 퇴원·재원 정보 후보(discharge_disposition_id, time_in_hospital 등)의 사용 가능 여부를 확인 불가로 보류합니다. 자료나 근거가 부족하면 진단 블록이 확인 불가로 보고합니다.",
+      "reason": "이미 검증된 EDA 선택입니다. 예측 시점과 특성 가용성 근거가 없어 퇴원 정보 등 완료 후 정보 후보를 안전하다고 볼 수 없으며 확인 불가 상태로 유지합니다. 자료나 근거가 부족하면 진단 블록이 확인 불가로 보고합니다.",
       "blocked_reasons": [],
       "requires": [
         "feature_columns"

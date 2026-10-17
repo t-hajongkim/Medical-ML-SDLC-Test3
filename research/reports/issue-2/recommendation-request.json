@@ -1,12 +1,12 @@
 {
   "schema_version": 1,
   "provider": "github-copilot-cloud-agent",
-  "context_hash": "dcf2acf0cb4a416a9dd4d29667a8e048b7207e1e3c6da6bd2380ba42714527de",
+  "context_hash": "9f1f23bbd17bf996fa6c97a09899b304fca9947d8a88aaacd6bf09e565db6929",
   "context": {
     "facts": {
       "data_id": "c34ec224503e2038c79fd11c47e0f603c7e392ba46f4e8c14e1661bfaf5303fd",
       "input_mapping_hash": "efb2726a5496829ff0cd9425b5741ff12309f4be74444728754ea7371c21837e",
-      "coordination_hash": "ecf8d803c8cc880a4f986aa99ad199c90a00ac3523b9ac679495a31d3279c4ca",
+      "coordination_hash": "c4f2d83645535474d30e1a0910d0dd2e769a3e6fdd65c4d34a6a93f9bf2902f8",
       "research_request_hash": "4292a6b73b57910985056da7097707ca700ca2608182a18a66541ff08a5cebfa",
       "initial_execution_plan_hash": "25225c56f304a76612b726a9067781aa9346b0d94097fbb6599b998fd4eab36c",
       "coordinated.demographics": {
@@ -1115,7 +1115,8 @@
       ],
       "objectives.evaluation": [
         "discrimination",
-        "probability_quality"
+        "probability_quality",
+        "threshold_performance"
       ],
       "clinical_action_defined": false,
       "comparison_model_defined": false,
