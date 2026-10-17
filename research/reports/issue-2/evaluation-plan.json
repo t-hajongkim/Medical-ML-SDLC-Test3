@@ -1,0 +1,208 @@
+{
+  "schema_version": 1,
+  "stage": "evaluation",
+  "selected_ids": [
+    "roc_auc",
+    "average_precision",
+    "brier_score",
+    "calibration_curve",
+    "f1",
+    "recall",
+    "precision"
+  ],
+  "items": [
+    {
+      "id": "roc_auc",
+      "sources": [
+        "default",
+        "ai"
+      ],
+      "state": "eligible_planned_inputs",
+      "reason": "설정된 기본 정책에 포함된 블록입니다. 판별력 목적에 맞고 임계값이 필요 없어 즉시 적용 가능합니다. 다만 환자 중복(분할 간 겹침)과 validation 재사용 때문에 낙관적일 수 있어 독립 임상 검증이 아닙니다. 입력은 이후 생성할 계획이며 아직 계산하지 않았습니다. 실제 지표 실행 시 행 정합과 수학적 요건을 다시 검증합니다.",
+      "blocked_reasons": [],
+      "requires": [
+        "y_true",
+        "y_probability"
+      ],
+      "requires_parameters": [],
+      "requires_context": [],
+      "required": false,
+      "evidence": [
+        "objectives.evaluation",
+        "required.patient_overlap.overlaps",
+        "probability_output_planned"
+      ]
+    },
+    {
+      "id": "average_precision",
+      "sources": [
+        "default",
+        "ai",
+        "user"
+      ],
+      "state": "eligible_planned_inputs",
+      "reason": "설정된 기본 정책에 포함된 블록입니다. 양성률이 약 11%로 불균형이어서 정밀도-재현율 관점의 요약이 유용하며 현재 선택된 주지표 후보와도 부합합니다. 주지표 확정은 사람이 합니다. 사용자가 추가로 선택한 블록입니다. 입력은 이후 생성할 계획이며 아직 계산하지 않았습니다. 실제 지표 실행 시 행 정합과 수학적 요건을 다시 검증합니다.",
+      "blocked_reasons": [],
+      "requires": [
+        "y_true",
+        "y_probability"
+      ],
+      "requires_parameters": [],
+      "requires_context": [],
+      "required": false,
+      "evidence": [
+        "split_counts",
+        "coordinated.cohort",
+        "labels_planned"
+      ]
+    },
+    {
+      "id": "brier_score",
+      "sources": [
+        "default",
+        "ai"
+      ],
+      "state": "eligible_planned_inputs",
+      "reason": "설정된 기본 정책에 포함된 블록입니다. 확률 품질 목적에 맞는 임계값 불필요 지표입니다. 확률 출력은 이후 계획 입력이며 현재 계산 결과가 아닙니다. 입력은 이후 생성할 계획이며 아직 계산하지 않았습니다. 실제 지표 실행 시 행 정합과 수학적 요건을 다시 검증합니다.",
+      "blocked_reasons": [],
+      "requires": [
+        "y_true",
+        "y_probability"
+      ],
+      "requires_parameters": [],
+      "requires_context": [],
+      "required": false,
+      "evidence": [
+        "objectives.evaluation",
+        "probability_output_planned"
+      ]
+    },
+    {
+      "id": "calibration_curve",
+      "sources": [
+        "default",
+        "ai"
+      ],
+      "state": "eligible_planned_inputs",
+      "reason": "설정된 기본 정책에 포함된 블록입니다. 확률 보정을 구간별로 확인하며 n_bins는 기본값 10을 쓸 수 있습니다. 소수 하위집단은 표본이 작아 해석에 주의가 필요합니다. 입력은 이후 생성할 계획이며 아직 계산하지 않았습니다. 실제 지표 실행 시 행 정합과 수학적 요건을 다시 검증합니다.",
+      "blocked_reasons": [],
+      "requires": [
+        "y_true",
+        "y_probability"
+      ],
+      "requires_parameters": [],
+      "requires_context": [],
+      "required": false,
+      "evidence": [
+        "parameters.n_bins_defined",
+        "coordinated.demographics"
+      ]
+    },
+    {
+      "id": "f1",
+      "sources": [
+        "user"
+      ],
+      "state": "blocked",
+      "reason": "사용자가 추가로 선택한 블록입니다. 확정된 매개변수가 없습니다: threshold.",
+      "blocked_reasons": [
+        "확정된 매개변수가 없습니다: threshold."
+      ],
+      "requires": [
+        "y_true",
+        "y_probability"
+      ],
+      "requires_parameters": [
+        "threshold"
+      ],
+      "requires_context": [],
+      "required": false,
+      "evidence": []
+    },
+    {
+      "id": "recall",
+      "sources": [
+        "user"
+      ],
+      "state": "blocked",
+      "reason": "사용자가 추가로 선택한 블록입니다. 확정된 매개변수가 없습니다: threshold.",
+      "blocked_reasons": [
+        "확정된 매개변수가 없습니다: threshold."
+      ],
+      "requires": [
+        "y_true",
+        "y_probability"
+      ],
+      "requires_parameters": [
+        "threshold"
+      ],
+      "requires_context": [],
+      "required": false,
+      "evidence": []
+    },
+    {
+      "id": "precision",
+      "sources": [
+        "user"
+      ],
+      "state": "blocked",
+      "reason": "사용자가 추가로 선택한 블록입니다. 확정된 매개변수가 없습니다: threshold.",
+      "blocked_reasons": [
+        "확정된 매개변수가 없습니다: threshold."
+      ],
+      "requires": [
+        "y_true",
+        "y_probability"
+      ],
+      "requires_parameters": [
+        "threshold"
+      ],
+      "requires_context": [],
+      "required": false,
+      "evidence": []
+    }
+  ],
+  "defaults": [
+    "roc_auc",
+    "average_precision",
+    "brier_score",
+    "calibration_curve"
+  ],
+  "required_ids": [],
+  "ai_recommended_ids": [
+    "roc_auc",
+    "average_precision",
+    "brier_score",
+    "calibration_curve"
+  ],
+  "user_added_ids": [
+    "average_precision",
+    "f1",
+    "recall",
+    "precision"
+  ],
+  "user_excluded_ids": [],
+  "objectives": [
+    "discrimination",
+    "probability_quality",
+    "threshold_performance"
+  ],
+  "ai_status": "provided",
+  "approval_required": true,
+  "planning_complete": true,
+  "draft": false,
+  "clinical_use_approved": false,
+  "primary_metric": "average_precision",
+  "threshold": null,
+  "parameters": {},
+  "clinical_action": null,
+  "comparison_model": null,
+  "planned_inputs": {
+    "y_true": true,
+    "y_probability": true,
+    "sample_ids": true,
+    "reference_sample_ids": false,
+    "reference_probabilities": false
+  },
+  "interpretation": "계산 계획은 임상 사용 승인이나 독립 성능 검증이 아닙니다. 환자 중복과 validation 재사용의 설계 한계를 별도로 유지합니다."
+}

@@ -1,0 +1,33 @@
+{
+  "schema_version": 1,
+  "eda": {
+    "objectives": [
+      "data_quality",
+      "population_description",
+      "prediction_readiness",
+      "outcome_observability",
+      "preprocessing_provenance"
+    ],
+    "add": [],
+    "exclude": []
+  },
+  "evaluation": {
+    "objectives": [
+      "discrimination",
+      "probability_quality",
+      "threshold_performance"
+    ],
+    "add": [
+      "average_precision",
+      "f1",
+      "recall",
+      "precision"
+    ],
+    "exclude": [],
+    "primary_metric": "average_precision",
+    "threshold": null,
+    "parameters": {},
+    "clinical_action": null,
+    "comparison_model": null
+  }
+}

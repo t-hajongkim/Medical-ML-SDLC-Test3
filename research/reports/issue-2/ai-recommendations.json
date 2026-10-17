@@ -1,0 +1,67 @@
+{
+  "schema_version": 1,
+  "provider": "github-copilot-cloud-agent",
+  "context_hash": "5031fcaa77d36218e06e9ecef40798e79d2c878eb7668973b835e1fbaef2ab3f",
+  "status": "provided",
+  "eda": [
+    {
+      "id": "label_observability",
+      "reason": "이미 검증된 EDA 선택입니다. 목표 인코딩은 통과했지만 원본 라벨 정렬, 추적 완전성, 외부 병원 재입원 포착은 확인 불가이므로 정답 0이 무사건을 입증하지 않는다는 한계를 유지합니다.",
+      "evidence": [
+        "coordinated.label_observability",
+        "target"
+      ]
+    },
+    {
+      "id": "preprocessing_lineage",
+      "reason": "이미 검증된 EDA 선택입니다. 대치·스케일링·타깃 인코딩의 적합 범위가 확인 불가이고 validation이 개발에 재사용되어 독립 holdout 또는 누수 없음 주장은 불가합니다.",
+      "evidence": [
+        "coordinated.preprocessing_lineage",
+        "required.patient_overlap.status"
+      ]
+    },
+    {
+      "id": "prediction_timing",
+      "reason": "이미 검증된 EDA 선택입니다. 예측 시점과 특성 가용성 문서가 없어 퇴원·재원 정보 후보 특성의 사용 가능 시점은 확인 불가입니다.",
+      "evidence": [
+        "coordinated.prediction_timing"
+      ]
+    }
+  ],
+  "evaluation": [
+    {
+      "id": "roc_auc",
+      "reason": "판별력 목적에 맞고 임계값이 필요 없어 즉시 적용 가능합니다. 다만 환자 중복(분할 간 겹침)과 validation 재사용 때문에 낙관적일 수 있어 독립 임상 검증이 아닙니다.",
+      "evidence": [
+        "objectives.evaluation",
+        "required.patient_overlap.overlaps",
+        "probability_output_planned"
+      ]
+    },
+    {
+      "id": "average_precision",
+      "reason": "양성률이 약 11%로 불균형이어서 정밀도-재현율 관점의 요약이 유용하며 현재 선택된 주지표 후보와도 부합합니다. 주지표 확정은 사람이 합니다.",
+      "evidence": [
+        "split_counts",
+        "coordinated.cohort",
+        "labels_planned"
+      ]
+    },
+    {
+      "id": "brier_score",
+      "reason": "확률 품질 목적에 맞는 임계값 불필요 지표입니다. 확률 출력은 이후 계획 입력이며 현재 계산 결과가 아닙니다.",
+      "evidence": [
+        "objectives.evaluation",
+        "probability_output_planned"
+      ]
+    },
+    {
+      "id": "calibration_curve",
+      "reason": "확률 보정을 구간별로 확인하며 n_bins는 기본값 10을 쓸 수 있습니다. 소수 하위집단은 표본이 작아 해석에 주의가 필요합니다.",
+      "evidence": [
+        "parameters.n_bins_defined",
+        "coordinated.demographics"
+      ]
+    }
+  ]
+}
