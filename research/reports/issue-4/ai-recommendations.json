@@ -1,0 +1,96 @@
+{
+  "schema_version": 1,
+  "provider": "github-copilot-cloud-agent",
+  "context_hash": "94b80225e34d630016e37fedd295fd5cc6ada5095f51d29c8c4abeea444c845f",
+  "status": "provided",
+  "eda": [
+    {
+      "id": "prediction_timing",
+      "reason": "이미 검증된 EDA 선택입니다. 예측 시점과 특성 가용성 근거가 없어 확인 불가 상태이며, 퇴원·재원 정보를 입원 시점에 쓸 수 있다고 가정하지 않습니다. 이름 기반 선별일 뿐 누수 증명은 아닙니다.",
+      "evidence": [
+        "coordinated.prediction_timing"
+      ]
+    },
+    {
+      "id": "label_observability",
+      "reason": "이미 검증된 EDA 선택입니다. 타깃 인코딩은 통과했지만 원본 라벨 정렬, 추적 완전성, 외부 병원 재입원 포착은 확인 불가이므로 0을 완전한 무사건으로 해석하지 않습니다.",
+      "evidence": [
+        "coordinated.label_observability",
+        "target"
+      ]
+    },
+    {
+      "id": "preprocessing_lineage",
+      "reason": "이미 검증된 EDA 선택입니다. 파일 무결성은 통과했으나 대치·스케일링·타깃 인코딩의 적합 범위는 확인 불가이고 validation도 개발에 쓰였으므로 독립 holdout이나 누수 없음으로 해석할 수 없습니다.",
+      "evidence": [
+        "coordinated.preprocessing_lineage"
+      ]
+    }
+  ],
+  "evaluation": [
+    {
+      "id": "average_precision",
+      "reason": "재입원 사건 비율이 약 11%로 불균형이어서 양성 회수 중심의 AP가 유용하며, 사람이 주지표로 요청했습니다. 환자 중복과 validation 개발 재사용 때문에 교육용 연결 검증 값일 뿐 독립 성능이 아닙니다.",
+      "evidence": [
+        "coordinated.cohort",
+        "split_counts",
+        "required.patient_overlap.overlaps",
+        "objectives.evaluation"
+      ]
+    },
+    {
+      "id": "roc_auc",
+      "reason": "임계값 없이 순위 구분력을 보는 기본 지표입니다. 두 클래스가 모두 존재하나 분할 간 환자 중복(실패)으로 낙관적일 수 있어 해석에 주의가 필요합니다.",
+      "evidence": [
+        "required.patient_overlap.status",
+        "coordinated.cohort",
+        "objectives.evaluation"
+      ]
+    },
+    {
+      "id": "brier_score",
+      "reason": "확률 출력이 계획되어 있어 확률 품질을 평가할 수 있습니다. 사건 비율 약 11%의 기준선과 함께 해석해야 하며 임상 보정 승인이 아닙니다.",
+      "evidence": [
+        "probability_output_planned",
+        "labels_planned",
+        "coordinated.cohort"
+      ]
+    },
+    {
+      "id": "calibration_curve",
+      "reason": "예측 확률과 관측 비율의 구간별 차이를 보여 줍니다. n_bins는 미정이므로 기본값을 따르며 희소 구간은 불안정할 수 있습니다.",
+      "evidence": [
+        "parameters.n_bins_defined",
+        "probability_output_planned",
+        "objectives.evaluation"
+      ]
+    },
+    {
+      "id": "f1",
+      "reason": "사람이 요청한 임계값 0.5에서의 F1입니다. 교육용 파이프라인 동작 확인값이며 임상 표준이나 최적 임계값이 아니고 test 분할 최적화는 하지 않습니다.",
+      "evidence": [
+        "parameters.threshold_defined",
+        "objectives.evaluation",
+        "coordinated.cohort"
+      ]
+    },
+    {
+      "id": "recall",
+      "reason": "사람이 요청한 임계값 0.5에서 재입원 양성 회수율을 확인합니다. 임상 행동이 미정이므로 선별 효용으로 해석하지 않습니다.",
+      "evidence": [
+        "parameters.threshold_defined",
+        "clinical_action_defined",
+        "objectives.evaluation"
+      ]
+    },
+    {
+      "id": "precision",
+      "reason": "사람이 요청한 임계값 0.5에서 양성 예측의 정밀도를 확인합니다. 사건 비율이 낮아 임계값에 민감하며 임상 사용 승인이나 독립 holdout 성능이 아닙니다.",
+      "evidence": [
+        "parameters.threshold_defined",
+        "coordinated.cohort",
+        "objectives.evaluation"
+      ]
+    }
+  ]
+}
