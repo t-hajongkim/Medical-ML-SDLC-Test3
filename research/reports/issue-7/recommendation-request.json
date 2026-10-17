@@ -1,12 +1,12 @@
 {
   "schema_version": 1,
   "provider": "github-copilot-cloud-agent",
-  "context_hash": "0e7f5839a5f05efca513e661ba896c87fe43fce27cdd524dfec84df34817c9cb",
+  "context_hash": "4ca030680db1c28e4df67c778fefbfd768d29dbe5fd989076da130051b07d9ff",
   "context": {
     "facts": {
       "data_id": "c34ec224503e2038c79fd11c47e0f603c7e392ba46f4e8c14e1661bfaf5303fd",
       "input_mapping_hash": "efb2726a5496829ff0cd9425b5741ff12309f4be74444728754ea7371c21837e",
-      "coordination_hash": "414f1e76e14a25774ae34a3a520eb865bded7302a55f35e046bfaf343f639c78",
+      "coordination_hash": "6985dbc7f571938db733054667b7ccfb045e9cf2774faa7180e729b3ffb6e4a3",
       "research_request_hash": "20f8c3c5ccae302f20fc08e6ab5cd0f07dd6ddd853cfcf3c5252b8a830b9a4b3",
       "initial_execution_plan_hash": "1acbd58ebda012f4add4bffc83e32052dd3d295a3ed0311b636030a3e8abad0c",
       "coordinated.demographics": {
@@ -1115,13 +1115,14 @@
       ],
       "objectives.evaluation": [
         "discrimination",
-        "probability_quality"
+        "probability_quality",
+        "threshold_performance"
       ],
       "clinical_action_defined": false,
       "comparison_model_defined": false,
       "parameters.n_bins_defined": false,
       "parameters.risk_thresholds_defined": false,
-      "parameters.threshold_defined": false,
+      "parameters.threshold_defined": true,
       "parameters.thresholds_defined": false,
       "parameters.top_fraction_defined": false,
       "labels_planned": true,

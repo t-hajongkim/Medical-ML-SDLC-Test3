@@ -2,18 +2,16 @@
   "record": {
     "schema_version": 1,
     "provider": "github-copilot-cloud-agent",
-    "context_hash": "187ef12c27b24ff3d0dc90b8dee941f598a5183ac3db5b3a8ead85c6b554a869",
+    "context_hash": "7b9c892d699638c8b3914e90b9b523b97ebe2caffd0f2aeacc3e91abf02ccf4e",
     "request_hash": "20f8c3c5ccae302f20fc08e6ab5cd0f07dd6ddd853cfcf3c5252b8a830b9a4b3",
-    "base_selection_hash": "7580a32dcd2223fc53975f8204069bf45c6f9707a7d8764b2f5e44c538dd3242",
-    "selection_hash": "c71488a9c9d9d9ce07807673efffec3f1fe62e0e2ba01b60a0131e7a72e14459",
+    "base_selection_hash": "c71488a9c9d9d9ce07807673efffec3f1fe62e0e2ba01b60a0131e7a72e14459",
+    "selection_hash": "415753b9bbeb3c7865aed41324e9fc547426b03b7c229cab32c6fb46f17c7d81",
     "schema_hash": "ee54ec643d55a5f5e8e8d8456f5252426855abd1580c6f0904dfda883c9abb9f",
-    "feedback_hash": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
-    "feedback_ids": [],
-    "eda_add": [
-      "label_observability",
-      "preprocessing_lineage",
-      "prediction_timing"
+    "feedback_hash": "c9728f88b2361ec84ed47ad8aba2d8a646237b2192a28d63e995b8aaa7c3f908",
+    "feedback_ids": [
+      6232001930
     ],
+    "eda_add": [],
     "objectives": {
       "eda": [
         "data_quality",
@@ -24,11 +22,12 @@
       ],
       "evaluation": [
         "discrimination",
-        "probability_quality"
+        "probability_quality",
+        "threshold_performance"
       ]
     },
-    "reason": "기본 EDA에서 환자 중복이 failed이고 cohort는 unverifiable입니다. 연구 질문(원본 결측과 대치값 구분, 정답 해석, 예측 준비도)에 맞춰 정답 관측 가능성, 전처리 출처, 예측 시점 가용성을 추가 점검합니다. 근거가 없으면 unverifiable로 남을 수 있습니다.",
-    "coordination_hash": "5e460a13914fa5c74ca83a1c43982e41d113aa649d09c3c32999804c21a8c829"
+    "reason": "일곱 개 등록 EDA가 이미 모두 실행되어 추가 점검은 없으며 기존 EDA 결과와 선택은 그대로 재사용합니다. 댓글 요청에 따라 평가 지표에 F1·Recall·Precision을 추가하고 주지표를 Average Precision으로, 교육용 연결 검증 threshold를 0.5로 지정합니다. 0.5는 임상 표준이나 최적값이 아니며 모델 추론·지표 계산은 수행하지 않습니다.",
+    "coordination_hash": "5212c3ad166eec1de877192601afc80e9c6a9bfe0f0c34b3fdcca743c56a209c"
   },
   "code_commit": "663471767bb81808676933253442fdad8b30ce8f",
   "schema": {
@@ -3230,5 +3229,5 @@
       }
     }
   },
-  "coordination_hash": "414f1e76e14a25774ae34a3a520eb865bded7302a55f35e046bfaf343f639c78"
+  "coordination_hash": "6985dbc7f571938db733054667b7ccfb045e9cf2774faa7180e729b3ffb6e4a3"
 }
