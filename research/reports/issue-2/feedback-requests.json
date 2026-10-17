@@ -4,6 +4,11 @@
       "actor": "t-hajongkim",
       "body_sha256": "34bc91bd1369bd170fefc80c42a48a14d99699af3bf9a1038669a2bd1946b30b",
       "comment_id": 6228992484
+    },
+    {
+      "actor": "t-hajongkim",
+      "body_sha256": "56b8221692ad39f00310328c0b3edca53df5e802beaab31056d551ea4b1d3c36",
+      "comment_id": 6229055192
     }
   ],
   "issue_number": 2,
