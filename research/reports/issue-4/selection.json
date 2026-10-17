@@ -14,12 +14,18 @@
   "evaluation": {
     "objectives": [
       "discrimination",
-      "probability_quality"
+      "probability_quality",
+      "threshold_performance"
     ],
-    "add": [],
+    "add": [
+      "average_precision",
+      "f1",
+      "recall",
+      "precision"
+    ],
     "exclude": [],
-    "primary_metric": null,
-    "threshold": null,
+    "primary_metric": "average_precision",
+    "threshold": 0.5,
     "parameters": {},
     "clinical_action": null,
     "comparison_model": null

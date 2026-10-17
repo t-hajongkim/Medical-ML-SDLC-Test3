@@ -2,18 +2,16 @@
   "record": {
     "schema_version": 1,
     "provider": "github-copilot-cloud-agent",
-    "context_hash": "f35ec7eabf0ef44a6fdee620f1942f3360a28bf7f1578789e4f78399a755fe1b",
+    "context_hash": "3b470844c0f73d2010a4f4715425394fab718a9a00dedacf79303b137d2b773d",
     "request_hash": "25d34b536c837c2b2a42a0b70427e6f111d8ccc3c7f5fcf3143d9e8b446f3af5",
-    "base_selection_hash": "7580a32dcd2223fc53975f8204069bf45c6f9707a7d8764b2f5e44c538dd3242",
-    "selection_hash": "c71488a9c9d9d9ce07807673efffec3f1fe62e0e2ba01b60a0131e7a72e14459",
+    "base_selection_hash": "c71488a9c9d9d9ce07807673efffec3f1fe62e0e2ba01b60a0131e7a72e14459",
+    "selection_hash": "415753b9bbeb3c7865aed41324e9fc547426b03b7c229cab32c6fb46f17c7d81",
     "schema_hash": "ee54ec643d55a5f5e8e8d8456f5252426855abd1580c6f0904dfda883c9abb9f",
-    "feedback_hash": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
-    "feedback_ids": [],
-    "eda_add": [
-      "prediction_timing",
-      "label_observability",
-      "preprocessing_lineage"
+    "feedback_hash": "f655a1f310daff7a9741d16ff5506c5462d9e87ff570bbc1160f14739fc31f75",
+    "feedback_ids": [
+      6231008846
     ],
+    "eda_add": [],
     "objectives": {
       "eda": [
         "data_quality",
@@ -24,11 +22,12 @@
       ],
       "evaluation": [
         "discrimination",
-        "probability_quality"
+        "probability_quality",
+        "threshold_performance"
       ]
     },
-    "reason": "기본 EDA에서 환자 중복 실패와 코호트·스키마 일부 확인불가가 나타났습니다. 평가 지표 해석 한계를 위해 예측 시점 가용성, 정답 관찰 가능성, 전처리 출처를 추가 점검합니다. 근거가 없으면 확인불가로 남기며 통과로 간주하지 않습니다.",
-    "coordination_hash": "b072d3e4f7343c09abfc191b8deb1905fcbac386999120710009f7810eb0ea11"
+    "reason": "기본 EDA 7개가 이미 완료되어 새 EDA는 추가하지 않고 기존 집계를 재사용합니다. 댓글 요청에 따라 F1·Recall·Precision을 추가하고 주지표를 Average Precision, 임계값 0.5(교육용 동작 확인값, 임상 표준·최적값 아님)로 갱신합니다.",
+    "coordination_hash": "475d692e59ab46a5d8b6d03ed700c01a75a2fd207631bcbd587044dd12b6a45d"
   },
   "code_commit": "e4d4ecf9f4caa593e51cdf548fb560977637d51c",
   "schema": {
@@ -3230,5 +3229,5 @@
       }
     }
   },
-  "coordination_hash": "17a5b18438cd05866538d47556f6be4517fbf4d36686fb68517f15a14c7ae2e5"
+  "coordination_hash": "411d87fb7ba287ffebb38d380bbe692584803b62944411afd4e4f8ff32628807"
 }
